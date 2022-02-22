@@ -39,7 +39,8 @@ class FlightRepository extends AbstractRepository
     private function buildFlight(mixed $flightData): Flight
     {
         $this->assertKeysExists($flightData, [self::FROM_DATA_KEY, self::TO_DATA_KEY]);
-        [self::FROM_DATA_KEY => $fromData, self::TO_DATA_KEY => $toData] = $flightData;
+        $fromData = $flightData[self::FROM_DATA_KEY];
+        $toData = $flightData[self::TO_DATA_KEY];
         $this->assertKeysExists($fromData, [self::AIRPORT_DATA_KEY, self::TIME_DATA_KEY]);
         $this->assertKeysExists($toData, [self::AIRPORT_DATA_KEY, self::TIME_DATA_KEY]);
 
