@@ -15,6 +15,7 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 class ShowAirportBoardCommand extends Command
 {
     protected static $defaultName = 'app:show-airport-board';
+    protected const DATE_TIME_FORMAT_PATTERN = 'Y.m.d H:i \G\M\TP';
 
     private SymfonyStyle $io;
     private OutputInterface $output;
@@ -101,9 +102,9 @@ class ShowAirportBoardCommand extends Command
                 return [
                     '#' => $rowIndex++,
                     'from' => $this->buildAirportTitle($flight->getFromAirport()),
-                    'from time' => $flight->getFromTime(),
+                    'from time' => $flight->getFromDateTime()->format(self::DATE_TIME_FORMAT_PATTERN),
                     'to' => $this->buildAirportTitle($flight->getToAirport()),
-                    'to time' => $flight->getToTime(),
+                    'to time' => $flight->getToDateTime()->format(self::DATE_TIME_FORMAT_PATTERN),
                     'duration' => new DurationHumanFormatter($flight->calculateDurationMinutes()),
                 ];
             },
