@@ -31,14 +31,13 @@ class Flight
 
     public function calculateDurationMinutes(): int
     {
-        return $this->calculateMinutesFromStartDay($this->toTime) - $this->calculateMinutesFromStartDay($this->fromTime);
+        $interval = date_diff($this->toDateTime, $this->fromDateTime);
+        return $this->calculateMinutesFromDateTimeInterval($interval);
     }
 
-    private function calculateMinutesFromStartDay(string $time): int
+    private function calculateMinutesFromDateTimeInterval(\DateInterval $interval): int
     {
-        [$hour, $minutes] = explode(':', $time, 2);
-
-        return 60 * (int) $hour + (int) $minutes;
+        return ($interval->h * 60) + $interval->i;
     }
 
     public function getFromDateTime(): \DateTime
